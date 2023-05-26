@@ -114,7 +114,7 @@ sudo systemctl restart wazuh-manager
     * Tail the `ossec.log` file and ensure you see valid responses from the SOCFortress Knowledge Base API. `tail -f /var/ossec/logs/ossec.log | grep socfortress`
 
 <div align="center" width="50" height="50">
-  <a href="https://raw.githubusercontent.com/socfortress/ASK-SOCFortress-Module/main/images/ossec_log.PNG">
+  <a href="https://github.com/socfortress/ASK-SOCFortress-Module/blob/main/images/ossec_log.PNG">
     <img src="images/ossec_log.PNG" alt="Logo">
   </a>
 
@@ -125,7 +125,7 @@ sudo systemctl restart wazuh-manager
 If working correctly, rule id `200986` will trigger when a positive IoC is found.
 
 <div align="center" width="50" height="50">
-  <a href="https://github.com/socfortress/SOCFortress-Threat-Intel/images/wazuh_hits.PNG">
+  <a href="https://github.com/socfortress/ASK-SOCFortress-Module/blob/main/images/wazuh_hits.PNG">
     <img src="images/wazuh_hits.PNG" alt="Logo">
   </a>
 
@@ -153,7 +153,7 @@ If working correctly, rule id `200986` will trigger when a positive IoC is found
 > ⚠ **NOTE:** Verify connection to the SOCFortress Knowledge Base API. Use Value `Suspicious%20Program%20Location%20with%20Network%20Connections` to test.
 
 <div align="center" width="50" height="50">
-  <a href="https://github.com/socfortress/ASK-SOCFortress-Module/images/graylog_response.png">
+  <a href="https://github.com/socfortress/ASK-SOCFortress-Module/blob/main/images/graylog_response.png">
     <img src="images/graylog_response.PNG" alt="Logo">
   </a>
 
