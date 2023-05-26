@@ -58,6 +58,7 @@ def query_api(sigma_name, apikey, product):
   "module-version": "1.0",
   "product": product,
   }
+  debug("# Querying SOCFortress API")
   response = requests.get('https://api.socfortress.co/v1/sigma', params=params, headers=headers)
   if response.status_code == 200:
       json_response = response.json()
@@ -85,32 +86,37 @@ def query_api(sigma_name, apikey, product):
       exit(0)
 
 def request_socfortress_api(alert, apikey):
+    debug("# Requesting SOCFortress API")
     alert_output = {}
     # Collect the SIGMA Rule Name - Currently only Supports Chainsaw for Windows
-    event_source = alert["rule"]["groups"][0]
+    event_source = alert["rule"]["groups"][1]
     if 'chainsaw' in event_source.lower():
-        if 'name' in alert["data"]:
+        debug("Chainsaw Event Detected")
+        if 'name' in alert['data']:
             ## URL encode where a space is present
-            sigma_rule = alert["data"]["name"].replace(" ", "%20")
+            sigma_rule = alert['data']["name"].replace(" ", "%20")
             product = 'windows'
+            debug(f'Sigma Rule: {sigma_rule}')
             data = query_api(sigma_rule, apikey, product)
         else:
+            debug("No Sigma Rule Name Detected")
             return(0)
     else:
         return(0)
     # Create alert
     alert_output["socfortress"] = {}
-    alert_output["integration"] = "custom-socfortress"
+    alert_output["integration"] = "custom-socfortress-knowledgebase"
     alert_output["socfortress"]["found"] = 0
     alert_output["socfortress"]["source"] = {}
     alert_output["socfortress"]["source"]["alert_id"] = alert["id"]
     alert_output["socfortress"]["source"]["agent_name"] = alert["agent"]["name"]
     alert_output["socfortress"]["source"]["rule"] = alert["rule"]["id"]
     alert_output["socfortress"]["source"]["description"] = alert["rule"]["description"]
-    alert_output["socfortress"]["source"]["processGuid"] = alert["data"]["win"]["eventdata"]["processGuid"]
+    alert_output["socfortress"]["source"]["processGuid"] = alert["data"]["event"]["ProcessGuid"]
     alert_output["socfortress"]["source"]["sigma_name"] = alert["data"]["name"]
     data = data
     # Populate JSON Output with SOCFortress results
+    alert_output["socfortress"]["status_code"] = 200
     alert_output["socfortress"]["message"] = data
 
     debug(alert_output)
