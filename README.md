@@ -122,7 +122,7 @@ sudo systemctl restart wazuh-manager
   </p>
 </div>
 
-If working correctly, rule id `200986` will trigger when a positive IoC is found.
+If working correctly, rule id `200986` will trigger when a response is provided.
 
 <div align="center" width="50" height="50">
   <a href="https://github.com/socfortress/ASK-SOCFortress-Module/blob/main/images/wazuh_hits.PNG">
